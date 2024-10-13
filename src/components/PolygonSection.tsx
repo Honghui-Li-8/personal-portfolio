@@ -1,16 +1,12 @@
 import React, { useMemo, useState } from "react";
+import Dimensions from "../constants/Dimension";
 
-const calculateCentroid = (points: string) => {
-  const vertices = points.split(" ").map(point => {
-    const [x, y] = point.split(",").map(Number);
-    return { x, y };
-  });
-
+const calculateCentroid = (vertices: [number, number][], dimensions:Dimensions) => {
   const numPoints = vertices.length;
   const centroid = vertices.reduce(
     (acc, vertex) => {
-      acc.x += vertex.x;
-      acc.y += vertex.y;
+      acc.x += vertex[0] * dimensions.width;
+      acc.y += vertex[1] * dimensions.height;
       return acc;
     },
     { x: 0, y: 0 }
@@ -22,13 +18,49 @@ const calculateCentroid = (points: string) => {
   };
 };
 
+const calculatePoints = (
+  vertices: [number, number][],
+  dimensions: Dimensions
+): string => {
+  let result = "";
+
+  for (let i = 0; i < vertices.length; ++i) {
+    let x:number = Math.round(vertices[i][0] * dimensions.width * 10) / 10;
+    let y:number = Math.round(vertices[i][1] * dimensions.height * 10) / 10;
+
+    if (vertices[i][0] === 0) {
+      x -= 5;
+    } else if (vertices[i][0] === 1) {
+      x += 5;
+    }
+
+    if (vertices[i][1] === 0) {
+      y -= 5;
+    } else if (vertices[i][1] === 1) {
+      x += 5;
+    }
+
+    result += x.toString() + ", " + y.toString();
+
+    if (i !== vertices.length - 1) {
+      result += ", ";
+    }
+  }
+
+  console.log("????????")
+  console.log(result)
+  return result;
+};
+
 const PolygonSection = ({
-  points,
+  dimensions,
+  vertices,
   color,
   name,
   onClick,
 }: {
-  points: string;
+  dimensions: Dimensions;
+  vertices: [number, number][];
   color: string;
   name: string;
   onClick: React.MouseEventHandler<SVGPolygonElement>;
@@ -39,8 +71,12 @@ const PolygonSection = ({
   const handleMouseEnter = () => setHovered(true);
   const handleMouseLeave = () => setHovered(false);
 
-  const centroid = useMemo(() => calculateCentroid(points), [points]);
-  
+  const centroid = useMemo(() => calculateCentroid(vertices, dimensions), [vertices, dimensions]);
+  const points = useMemo(
+    () => calculatePoints(vertices, dimensions),
+    [vertices, dimensions]
+  );
+
   // Scaling the text on hover
   const textScale = hovered ? 1.3 : 1; // Expand the text by 30% on hover
 
@@ -62,17 +98,19 @@ const PolygonSection = ({
       {/* The polygon name text */}
       <text
         x={centroid.x}
-        y={centroid.y} 
+        y={centroid.y}
         dominantBaseline="middle"
         textAnchor="middle"
         fill="black"
         fontSize="20"
         fontWeight="bold"
-        transform={`translate(${centroid.x}, ${centroid.y}) scale(${textScale}) translate(${-centroid.x}, ${-centroid.y})`} 
+        transform={`translate(${centroid.x}, ${
+          centroid.y
+        }) scale(${textScale}) translate(${-centroid.x}, ${-centroid.y})`}
         style={{
           pointerEvents: "none",
           transition: "transform 0.2s ease",
-          userSelect: "none"
+          userSelect: "none",
         }}
       >
         {name}

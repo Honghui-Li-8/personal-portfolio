@@ -10,10 +10,10 @@ const Home = () => {
   };
 
   return (
-    <div>
-      <svg style={{ pointerEvents: "none" }}>
+    <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100vw', height: '100vh', backgroundColor:"white"}}>
+      <svg style={{width: 'calc(100vw - 20px)', height: 'calc(100vh - 20px)', borderRadius: '5px', backgroundColor:"lightblue", pointerEvents: "none", overflow: 'hidden' }}>
         <PolygonSection
-          points="60,20 140,150 30,150"
+          points="-5,-5 400,-5 -5,650"
           color="#6666FF"
           name="test"
           onClick={() => {}}

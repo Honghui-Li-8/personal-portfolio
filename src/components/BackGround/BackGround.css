@@ -1,0 +1,5 @@
+@keyframes expand {
+    to {
+      transform: scale(100);
+    }
+  }

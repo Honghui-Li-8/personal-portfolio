@@ -27,8 +27,8 @@ const Home = () => {
     };
   }, []);
 
-  const handleClick = () => {
-    navigate("/About");
+  const goToTab = (tabName:string) => {
+    navigate("/" + tabName);
   };
 
   return (
@@ -61,7 +61,7 @@ const Home = () => {
               vertices={vertices}
               color="#90e0ef"
               name={sectionName[index]}
-              onClick={() => {}}
+              onClick={() => {goToTab(sectionName[index])}}
             />
           );
         })}

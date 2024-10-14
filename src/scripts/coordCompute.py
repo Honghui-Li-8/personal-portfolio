@@ -31,38 +31,54 @@ top_right = [1401, 10]
 bottom_left = [27, 995]
 bottom_right = [1401, 995]
 
-red_s = [323, 10]
-red_e = [154, 995]
+## Old layout
+# l1_s = [323, 10]
+# l1_e = [154, 995]
 
-blue_s = [733, 10]
-blue_e = [1401, 436]
+# l2_s = [733, 10]
+# l2_e = [1401, 436]
 
-org_s = [958, 10]
-org_e = [27, 446]
+# l3_s = [958, 10]
+# l3_e = [27, 446]
 
-green_s = [1401, 626]
-green_e = [1029, 995]
+# l4_s = [1401, 626]
+# l4_e = [1029, 995]
 
-black_s = [1401, 769]
-black_e = [27, 892]
+# l5_s = [1401, 769]
+# l5_e = [27, 892]
 
-red_org = getIntersect(red_s, red_e, org_s, org_e)
-blue_org = getIntersect(blue_s, blue_e, org_s, org_e)
-red_black = getIntersect(red_s, red_e, black_s, black_e)
-green_black = getIntersect(green_s, green_e, black_s, black_e)
+l1_s = [323 - 30, 10]
+l1_e = [154 - 80, 995]
+
+l2_s = [733 + 120, 10]
+l2_e = [1401, 436 - 150]
+
+l3_s = [958, 10]
+l3_e = [27, 446 - 80]
+
+l4_s = [1401, 626]
+l4_e = [1029, 995]
+
+l5_s = [1401, 769 + 20]
+l5_e = [27, 892 + 30]
+
+l1_l3 = getIntersect(l1_s, l1_e, l3_s, l3_e)
+l2_l3 = getIntersect(l2_s, l2_e, l3_s, l3_e)
+l1_l5 = getIntersect(l1_s, l1_e, l5_s, l5_e)
+l4_l5 = getIntersect(l4_s, l4_e, l5_s, l5_e)
 
 
 sections = [
-    [top_left, red_s, red_org, org_e],
-    [red_s, red_org, blue_org, blue_s],
-    [blue_s, blue_org, org_s],
-    [org_s, blue_org, blue_e, top_right],
-    [org_e, red_org, red_black, black_e],
-    [red_org, blue_org, blue_e, green_s, green_black, red_black],
-    [green_s, green_black, black_s],
-    [black_e, red_black, red_e, bottom_left],
-    [red_e, red_black, green_black, green_e],
-    [green_e, green_black, black_s, bottom_right]
+    [top_left, l1_s, l1_l3, l3_e],
+    [l1_s, l1_l3, l2_l3, l2_s],
+    [l2_s, l2_l3, l3_s],
+    [l3_s, l2_l3, l2_e, top_right],
+    [l3_e, l1_l3, l1_l5, l5_e],
+    [l1_l3, l2_l3, l2_e, l4_s, l4_l5, l1_l5],
+    [l4_s, l4_l5, l5_s],
+    [l5_e, l1_l5, l1_e, bottom_left],
+    [l1_e, l1_l5, l4_l5, l4_e],
+    [l4_e, l4_l5, l5_s, bottom_right]
 ]
 
 result = []

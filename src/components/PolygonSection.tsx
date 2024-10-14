@@ -85,7 +85,7 @@ const PolygonSection = ({
       <polygon
         points={points}
         fill={color}
-        stroke="lightblue"
+        stroke="#caf0f8"
         strokeWidth="5"
         style={{
           pointerEvents: "all", // Ensure only the polygon handles pointer events

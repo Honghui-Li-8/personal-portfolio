@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import "./BackGround.css";
 
-const BackGround = ({ showTransation, bgColor, newbgColor, animate = true, onAnimationEnd }) => {
+const BackGround = ({ showTransition, bgColor, newbgColor, animate = true, onAnimationEnd }) => {
   const [circleSize, setCircleSize] = useState({ width: 20, height: 20 });
   // Ref for the circle element
   const circleRef = useRef(null);
@@ -93,7 +93,7 @@ const BackGround = ({ showTransation, bgColor, newbgColor, animate = true, onAni
 
   return (
     <div style={styles.container} ref={bgRef}>
-      {showTransation && <div style={styles.circle} ref={circleRef}></div>}
+      {showTransition && <div style={styles.circle} ref={circleRef}></div>}
     </div>
   );
 };

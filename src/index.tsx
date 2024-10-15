@@ -4,6 +4,7 @@ import "./index.css";
 import App from "./App";
 import { MemoryRouter, BrowserRouter } from "react-router-dom";
 import reportWebVitals from "./reportWebVitals";
+import BgColorProvider from "./contexts/BgColorProvider";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -11,7 +12,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <App />
+      <BgColorProvider>
+        <App />
+      </BgColorProvider>
     </BrowserRouter>
   </React.StrictMode>
 );

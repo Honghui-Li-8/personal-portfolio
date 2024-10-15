@@ -62,25 +62,20 @@ const App: React.FC = () => {
         onAnimationEnd={onBGTransitionEnd}
       />
       <AnimatePresence mode="wait">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route
-            path="/About"
-            element={
-              <motion.div
-                key={location.pathname}
-                variants={pageTransitions}
-                initial="initial"
-                animate="animate"
-                exit="exit"
-              >
-                <About />
-              </motion.div>
-            }
-          />
+        <motion.div
+          key={location.pathname}
+          variants={pageTransitions}
+          initial="initial"
+          animate="animate"
+          exit="exit"
+        >
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/About" element={<About />} />
 
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </motion.div>
       </AnimatePresence>
     </>
   );

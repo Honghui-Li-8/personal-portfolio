@@ -69,8 +69,9 @@ const Home = () => {
         {/* <!-- Define the blur filter --> */}
         <defs>
         <linearGradient id="gradient-bg" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" style={{stopColor:"lightblue", stopOpacity:1}} />
-          <stop offset="100%" style={{stopColor:"blue", stopOpacity:0.4}}/>
+          <stop offset="0%" style={{stopColor:"#03a9f4", stopOpacity:0.95}} />
+          {/* <stop offset="0%" style={{stopColor:"", stopOpacity:0.95}} /> darkmode */}
+          <stop offset="100%" style={{stopColor:"#283593 ", stopOpacity:0.85}}/>
         </linearGradient>
         </defs>
           {layout1.map((vertices, index) => {

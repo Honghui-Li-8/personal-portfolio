@@ -85,16 +85,17 @@ const PolygonSection = ({
 
   // Scaling the text on hover
   const textScale = hovered ? 1.3 : 1; // Expand the text by 30% on hover
-  const fill = hovered ? "rgb(54, 101, 145, 0.7)" : color;
+  const fill = hovered ? "rgb(54, 101, 145, 0.7)" : "url(#gradient-bg)";
+  const fillOpacity= hovered ? 0.8: 0.3; 
 
   return (
     <g>
       <polygon
         points={points}
-        fill={fill}
+        fill={"url(#gradient-bg)"}
         stroke="#caf0f8"
         strokeWidth="5"
-        fillOpacity={1}
+        fillOpacity={fillOpacity}
         className="backdrop-blur-md"
         style={{
           pointerEvents: "all", // Ensure only the polygon handles pointer events
@@ -106,16 +107,6 @@ const PolygonSection = ({
         onClick={onClick}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
-        children={
-          <foreignObject x="10" y="10" width="300" height="100">
-            <div style={{
-              backdropFilter: "blur(10px)",
-              backgroundColor:"black"
-            }}>
-
-            </div>
-          </foreignObject>
-        }
       />
 
       {/* The polygon name text */}

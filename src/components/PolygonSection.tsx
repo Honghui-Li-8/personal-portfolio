@@ -104,7 +104,8 @@ const PolygonSection = ({
           // backgroundColor: "white",
           backdropFilter: "blur(10px)",
           overflow: "hidden",
-          transition: "fill 0.5s ease, fill-opacity 0.5s ease"
+          transition: "fill 0.5s ease-out, fill-opacity 0.5s ease-out"
+          // transition: "fill 0.5s ease, fill-opacity 0.5s ease"
         }}
         onClick={onClick}
         onMouseEnter={handleMouseEnter}

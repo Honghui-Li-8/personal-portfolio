@@ -86,6 +86,7 @@ const PolygonSection = ({
   // Scaling the text on hover
   const textScale = hovered ? 1.3 : 1; // Expand the text by 30% on hover
   const fill = hovered ? "rgb(54, 101, 145, 0.7)" : "url(#gradient-bg)";
+  // const fill = hovered ? "blue" : "lightblue";
   const fillOpacity= hovered ? 0.8: 0.3; 
 
   return (
@@ -96,13 +97,13 @@ const PolygonSection = ({
         stroke="#caf0f8"
         strokeWidth="5"
         fillOpacity={fillOpacity}
-        className="backdrop-blur-md"
         style={{
           pointerEvents: "all", // Ensure only the polygon handles pointer events
           // background: "white",
           // backgroundColor: "white",
           backdropFilter: "blur(10px)",
           overflow: "hidden",
+          transition: "fill 0.5s ease, fill-opacity 0.5s ease"
         }}
         onClick={onClick}
         onMouseEnter={handleMouseEnter}

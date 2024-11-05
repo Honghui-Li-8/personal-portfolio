@@ -1,7 +1,10 @@
 import React, { useMemo, useState } from "react";
 import Dimensions from "../constants/Dimension";
 
-const calculateCentroid = (vertices: [number, number][], dimensions:Dimensions) => {
+const calculateCentroid = (
+  vertices: [number, number][],
+  dimensions: Dimensions
+) => {
   const numPoints = vertices.length;
   const centroid = vertices.reduce(
     (acc, vertex) => {
@@ -25,8 +28,8 @@ const calculatePoints = (
   let result = "";
 
   for (let i = 0; i < vertices.length; ++i) {
-    let x:number = Math.round(vertices[i][0] * dimensions.width * 10) / 10;
-    let y:number = Math.round(vertices[i][1] * dimensions.height * 10) / 10;
+    let x: number = Math.round(vertices[i][0] * dimensions.width * 10) / 10;
+    let y: number = Math.round(vertices[i][1] * dimensions.height * 10) / 10;
 
     if (vertices[i][0] === 0) {
       x -= 5;
@@ -47,8 +50,8 @@ const calculatePoints = (
     }
   }
 
-  console.log("????????")
-  console.log(result)
+  // console.log("????????")
+  // console.log(result)
   return result;
 };
 
@@ -71,7 +74,10 @@ const PolygonSection = ({
   const handleMouseEnter = () => setHovered(true);
   const handleMouseLeave = () => setHovered(false);
 
-  const centroid = useMemo(() => calculateCentroid(vertices, dimensions), [vertices, dimensions]);
+  const centroid = useMemo(
+    () => calculateCentroid(vertices, dimensions),
+    [vertices, dimensions]
+  );
   const points = useMemo(
     () => calculatePoints(vertices, dimensions),
     [vertices, dimensions]
@@ -79,20 +85,37 @@ const PolygonSection = ({
 
   // Scaling the text on hover
   const textScale = hovered ? 1.3 : 1; // Expand the text by 30% on hover
+  const fill = hovered ? "rgb(54, 101, 145, 0.7)" : color;
 
   return (
     <g>
       <polygon
         points={points}
-        fill={color}
+        fill={fill}
         stroke="#caf0f8"
         strokeWidth="5"
+        fillOpacity={1}
+        className="backdrop-blur-md"
         style={{
           pointerEvents: "all", // Ensure only the polygon handles pointer events
+          // background: "white",
+          // backgroundColor: "white",
+          backdropFilter: "blur(10px)",
+          overflow: "hidden",
         }}
         onClick={onClick}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
+        children={
+          <foreignObject x="10" y="10" width="300" height="100">
+            <div style={{
+              backdropFilter: "blur(10px)",
+              backgroundColor:"black"
+            }}>
+
+            </div>
+          </foreignObject>
+        }
       />
 
       {/* The polygon name text */}

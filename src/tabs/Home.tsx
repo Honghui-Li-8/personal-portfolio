@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import PolygonSection from "../components/PolygonSection";
 import Dimensions from "../constants/Dimension";
+import image1 from "../asset/thumb.jpeg"
 
 const Home = () => {
   const navigate = useNavigate();
@@ -27,7 +28,7 @@ const Home = () => {
     };
   }, []);
 
-  const goToTab = (tabName:string) => {
+  const goToTab = (tabName: string) => {
     navigate("/" + tabName);
   };
 
@@ -42,37 +43,63 @@ const Home = () => {
         backgroundColor: "white",
       }}
     >
-      <svg
-        ref={svgContainerRef}
-        style={{
-          width: "calc(100vw - 20px)",
-          height: "calc(100vh - 20px)",
-          borderRadius: "5px",
-          backgroundColor: "lightblue",
-          pointerEvents: "none",
-          overflow: "hidden",
-        }}
-      >
-        {layout1.map((vertices, index) => {
-          return (
-            <PolygonSection
-              key={index}
-              dimensions={dimensions}
-              vertices={vertices}
-              color="#90e0ef"
-              name={sectionName[index]}
-              onClick={() => {goToTab(sectionName[index])}}
-            />
-          );
-        })}
-      </svg>
+      <div style={{
+        backgroundImage: `url(${image1})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundColor: "#cccccc",
+        width: "calc(100vw - 20px)",
+        height: "calc(100vh - 20px)",
+        borderRadius: "5px",
+        overflow: "hidden",
+      }}>
+        <svg
+          ref={svgContainerRef}
+          style={{
+            width: "calc(100vw - 20px)",
+            height: "calc(100vh - 20px)",
+            borderRadius: "5px",
+            backgroundColor: "rgb(217, 250, 248, 0.05)",
+            backdropFilter: "blur(0px)",
+            pointerEvents: "none",
+            overflow: "hidden",
+            opacity: 1,
+          }}
+        >
+          {layout1.map((vertices, index) => {
+            return (
+              <PolygonSection
+                key={index}
+                dimensions={dimensions}
+                vertices={vertices}
+                color="transparent"
+                name={sectionName[index]}
+                onClick={() => {
+                  goToTab(sectionName[index]);
+                }}
+              />
+            );
+          })}
+        </svg>
+      </div>
     </div>
   );
 };
 
 export default Home;
 
-const sectionName: string[] = ["Menu", "About","=", "Contact", "Tour", "Main", "Credit", "Playground", "ProjectGallery", "Resume"];
+const sectionName: string[] = [
+  "Menu",
+  "About",
+  "=",
+  "Contact",
+  "Tour",
+  "Main",
+  "Credit",
+  "Playground",
+  "ProjectGallery",
+  "Resume",
+];
 
 const layout1: [number, number][][] = [
   [

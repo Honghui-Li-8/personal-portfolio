@@ -78,6 +78,7 @@ const Home = () => {
             return (
               <PolygonSection
                 key={index}
+                index={index}
                 dimensions={dimensions}
                 vertices={vertices}
                 color="transparent"

@@ -3,21 +3,28 @@ import { InnerBoundary } from "../constants/Dimension";
 
 const PolygonInnerBlock = ({
   name,
+  index,
   bBox,
   innerBoundary,
   x,
   y,
 }: {
   name: string;
+  index:number;
   bBox: { width: number; height: number };
   innerBoundary: InnerBoundary;
   x: number;
   y: number;
 }) => {
   const top = innerBoundary.down - y; // since UI top (smaller y value) is math down (smaller y value)
-  const left = innerBoundary.left - x;
+  let left = innerBoundary.left - x;
   const width = innerBoundary.right - innerBoundary.left;
-  const height = innerBoundary.top - innerBoundary.down;
+  let height = innerBoundary.top - innerBoundary.down;
+  
+  if (index === 2) {
+    height *= 1.5;
+    left += width / 10;
+  }
 
   return (
     <foreignObject
@@ -26,24 +33,37 @@ const PolygonInnerBlock = ({
       width={"" + bBox.width}
       height={"" + bBox.height}
     >
-      <div
-        id={name}
+      {/* <div
         style={{
-          display:"flex",
-          top,
-          left,
-          width,
-          height,
-          background: name === "ProjectGallery" ? "orange" : "none",
+          display: "flex",
+          width: bBox.width,
+          height: bBox.height,
+          background: index === 2 ? "yellow" : "none",
           opacity: 0.7,
-          zIndex: 3,
           alignItems: "center",
-          justifyContent:"center",
-          position: "absolute",
+          justifyContent: "center",
         }}
-      >
-        {name}
-      </div>
+      > */}
+        <div
+          id={name}
+          style={{
+            display: "flex",
+            top,
+            left,
+            width,
+            height,
+            background: "orange",
+            // background: name === "Credit" ? "orange" : "none",
+            opacity: 0.7,
+            zIndex: 3,
+            alignItems: "center",
+            justifyContent: "center",
+            position: "absolute",
+          }}
+        >
+          {name}
+        </div>
+      {/* </div> */}
     </foreignObject>
     // <text
     //   // x={centroid.x}

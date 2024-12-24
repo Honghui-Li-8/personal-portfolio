@@ -124,12 +124,14 @@ const calculatePoints = (
 };
 
 const PolygonSection = ({
+  index,
   dimensions,
   vertices,
   color,
   name,
   onClick,
 }: {
+  index:number;
   dimensions: Dimensions;
   vertices: [number, number][];
   color: string;
@@ -198,6 +200,7 @@ const PolygonSection = ({
       {/* The polygon name text */}
       <PolygonInnerBlock
         name={name}
+        index={index}
         bBox={bBox}
         innerBoundary={innerBoundaryVar[0]}
         x={innerBoundaryVar[1]}

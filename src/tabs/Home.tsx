@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import PolygonSection from "../components/PolygonSection";
 import Dimensions from "../constants/Dimension";
-import image1 from "../asset/thumb.jpeg"
+import image1 from "../asset/thumb2.jpeg"
 
 const Home = () => {
   const navigate = useNavigate();
@@ -60,7 +60,7 @@ const Home = () => {
             height: "calc(100vh - 20px)",
             borderRadius: "5px",
             backgroundColor: "rgb(217, 250, 248, 0.05)",
-            backdropFilter: "blur(0px)",
+            // backdropFilter: "blur(0px)",
             pointerEvents: "none",
             overflow: "hidden",
             opacity: 1,
@@ -70,7 +70,7 @@ const Home = () => {
         <defs>
         <linearGradient id="gradient-bg" x1="0%" y1="0%" x2="100%" y2="0%">
           <stop offset="0%" style={{stopColor:"#0277bd", stopOpacity:0.95}} />
-          {/* <stop offset="0%" style={{stopColor:"", stopOpacity:0.95}} /> darkmode */}
+          {/* <stop offset="0%" style={{stopColor:"", stopOpacity:0.95}} /> dark-mode */}
           <stop offset="100%" style={{stopColor:"#4a148c", stopOpacity:0.85}}/>
         </linearGradient>
         </defs>

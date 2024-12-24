@@ -85,8 +85,9 @@ const PolygonSection = ({
 
   // Scaling the text on hover
   const textScale = hovered ? 1.3 : 1; // Expand the text by 30% on hover
-  const fill = hovered ? "rgb(54, 101, 145, 0.7)" : "url(#gradient-bg)";
+  // const fill = !hovered ? "rgb(54, 101, 145, 0.7)" : "url(#gradient-bg)";
   // const fill = hovered ? "blue" : "lightblue";
+  const fill = "url(#gradient-bg)";
   // const fillOpacity= hovered ? 0.9: 0.5; 
   const fillOpacity= hovered ? 1: 0.5; 
 
@@ -94,7 +95,8 @@ const PolygonSection = ({
     <g>
       <polygon
         points={points}
-        fill={"url(#gradient-bg)"}
+        // fill={"url(#gradient-bg)"}
+        fill={fill}
         stroke="#caf0f8"
         strokeWidth="5"
         fillOpacity={fillOpacity}

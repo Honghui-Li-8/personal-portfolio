@@ -85,15 +85,18 @@ const BackGround = () => {
   /****** Attach Event Listener for background animation ******/
   useEffect(() => {
     const circle = circleRef.current;
-    if (!circle) return;
+    if (!circle) {
+      return;
+    }
 
+    console.log("===== added listener for background animation component ======");
     // Handler for the animationend event
     const handleAnimationEnd = () => {
       console.log("Animation completed!");
       setBgColor(newbgColor);
       setShowTransaction(false);
-      console.log("new bg");
-      console.log(bgColor);
+      console.log("new bg", showTransaction);
+      // console.log(bgColor);
     };
 
     // Add event listener
@@ -101,7 +104,7 @@ const BackGround = () => {
 
     // Cleanup
     return () => circle.removeEventListener("animationend", handleAnimationEnd);
-  }, []);
+  }, [showTransaction]);
 
   /*********** update bg color ***********/
   useEffect(() => {

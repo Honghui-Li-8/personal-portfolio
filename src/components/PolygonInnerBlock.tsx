@@ -52,7 +52,7 @@ const PolygonInnerBlock = ({
             left,
             width,
             height,
-            background: "orange",
+            background: "none",
             // background: name === "Credit" ? "orange" : "none",
             opacity: 0.7,
             zIndex: 3,

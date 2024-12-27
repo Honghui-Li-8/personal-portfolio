@@ -10,15 +10,22 @@ const green = "#ccff99";
 const orange = "#ffcc99";
 
 const BackGround = () => {
-  const [bgColor, setBgColor] = React.useState("#ffffff");
+  const [bgColor, setBgColor] = React.useState("black");
   const [newbgColor, setNewbgColor] = React.useState("#add8e6");
   const [showTransaction, setShowTransaction] = React.useState(false);
   const [circleSize, setCircleSize] = useState({ width: 20, height: 20 });
   const activeTab = useSelector((state: RootState) => state.routerState.route);
+  const activeTabRef = useRef(activeTab);
   // Ref for the circle element
   const bgRef = useRef<HTMLDivElement | null>(null);
   const circleRef = useRef<HTMLDivElement | null>(null);
   const animate = true;
+
+
+  // update the ref of queue
+  useEffect(() => {
+    activeTabRef.current = activeTab;
+  }, [activeTab]);
 
   /********** trigger animation when tab switch **********/
   useEffect(() => {
@@ -26,7 +33,7 @@ const BackGround = () => {
       case "Home":
         setNewbgColor(lightBlue);
         break;
-      case "AboutMe":
+      case "About":
         setNewbgColor(blue);
         break;
       case "Contact":
@@ -39,6 +46,8 @@ const BackGround = () => {
         setNewbgColor("#ffffff");
     }
 
+    console.log("tab", activeTab)
+    console.log("new bg", newbgColor)
     setShowTransaction(true);
   }, [activeTab]);
 
@@ -132,7 +141,8 @@ const BackGround = () => {
 
   return (
     <div style={styles.container} ref={bgRef}>
-      {showTransaction && <div style={styles.circle} ref={circleRef}></div>}
+      {showTransaction && <div style={styles.circle} ref={circleRef} />}
+      {/* <div id="circle-" style={styles.circle} ref={circleRef}/> */}
     </div>
   );
 };

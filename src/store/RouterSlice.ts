@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import {act} from "react";
 
 //create the initial state, pressed on a node
 
@@ -16,7 +17,7 @@ const routerSlice = createSlice({
   initialState,
   reducers: {
     navigate: (state, action: PayloadAction<{ newRoute:string }>) => {
-
+      state.route = action.payload.newRoute;
     }
   },
 });

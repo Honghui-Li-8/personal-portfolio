@@ -1,11 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import PolygonSection from "../components/PolygonSection";
 import Dimensions from "../constants/Dimension";
 import image1 from "../asset/thumb2.jpeg"
+import {AppDispatch} from "../store/datastore";
+import {useDispatch} from "react-redux";
+import {navigate} from "../store/RouterSlice"
 
 const Home = () => {
-  const navigate = useNavigate();
+  const dispatch = useDispatch<AppDispatch>();
   const svgContainerRef = useRef<SVGSVGElement>(null);
   const [dimensions, setDimensions] = useState<Dimensions>({
     width: 0,
@@ -29,7 +31,7 @@ const Home = () => {
   }, []);
 
   const goToTab = (tabName: string) => {
-    navigate("/" + tabName);
+    dispatch(navigate({newRoute: tabName}));
   };
 
   return (
@@ -40,7 +42,8 @@ const Home = () => {
         alignItems: "center",
         width: "100vw",
         height: "100vh",
-        backgroundColor: "white",
+        // backgroundColor: "white",
+        opacity: 0.3
       }}
     >
       <div style={{

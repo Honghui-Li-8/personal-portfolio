@@ -43,7 +43,6 @@ const Home = () => {
         width: "100vw",
         height: "100vh",
         // backgroundColor: "white",
-        opacity: 0.3
       }}
     >
       <div style={{

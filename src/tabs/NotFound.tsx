@@ -1,12 +1,14 @@
 import React from "react";
-import { useNavigate } from 'react-router-dom';
+import {navigate} from "../store/RouterSlice"
+import {AppDispatch} from "../store/datastore";
+import {useDispatch} from "react-redux";
 
 
 const NotFound = () => {
-  const navigate = useNavigate();
+  const dispatch = useDispatch<AppDispatch>();
 
   const handleClick = () => {
-    navigate('/');
+    dispatch(navigate({newRoute: 'Home'}));
   };
 
   return (

@@ -1,10 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import PolygonSection from "../components/PolygonSection";
 import Dimensions from "../constants/Dimension";
+import image1 from "../asset/thumb2.jpeg"
+import {AppDispatch} from "../store/datastore";
+import {useDispatch} from "react-redux";
+import {navigate} from "../store/RouterSlice"
 
 const Home = () => {
-  const navigate = useNavigate();
+  const dispatch = useDispatch<AppDispatch>();
   const svgContainerRef = useRef<SVGSVGElement>(null);
   const [dimensions, setDimensions] = useState<Dimensions>({
     width: 0,
@@ -27,8 +30,8 @@ const Home = () => {
     };
   }, []);
 
-  const goToTab = (tabName:string) => {
-    navigate("/" + tabName);
+  const goToTab = (tabName: string) => {
+    dispatch(navigate({newRoute: tabName}));
   };
 
   return (
@@ -39,40 +42,76 @@ const Home = () => {
         alignItems: "center",
         width: "100vw",
         height: "100vh",
-        backgroundColor: "white",
+        // backgroundColor: "white",
+        opacity: 0.3
       }}
     >
-      <svg
-        ref={svgContainerRef}
-        style={{
-          width: "calc(100vw - 20px)",
-          height: "calc(100vh - 20px)",
-          borderRadius: "5px",
-          backgroundColor: "lightblue",
-          pointerEvents: "none",
-          overflow: "hidden",
-        }}
-      >
-        {layout1.map((vertices, index) => {
-          return (
-            <PolygonSection
-              key={index}
-              dimensions={dimensions}
-              vertices={vertices}
-              color="#90e0ef"
-              name={sectionName[index]}
-              onClick={() => {goToTab(sectionName[index])}}
-            />
-          );
-        })}
-      </svg>
+      <div style={{
+        backgroundImage: `url(${image1})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundColor: "#cccccc",
+        width: "calc(100vw - 20px)",
+        height: "calc(100vh - 20px)",
+        borderRadius: "5px",
+        overflow: "hidden",
+      }}>
+        <svg
+          ref={svgContainerRef}
+          style={{
+            width: "calc(100vw - 20px)",
+            height: "calc(100vh - 20px)",
+            borderRadius: "5px",
+            backgroundColor: "rgb(217, 250, 248, 0.05)",
+            // backdropFilter: "blur(0px)",
+            pointerEvents: "none",
+            overflow: "hidden",
+            opacity: 1,
+          }}
+        >
+        {/* <!-- Define the blur filter --> */}
+        <defs>
+        <linearGradient id="gradient-bg" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" style={{stopColor:"#0277bd", stopOpacity:0.95}} />
+          {/* <stop offset="0%" style={{stopColor:"", stopOpacity:0.95}} /> dark-mode */}
+          <stop offset="100%" style={{stopColor:"#4a148c", stopOpacity:0.85}}/>
+        </linearGradient>
+        </defs>
+          {layout1.map((vertices, index) => {
+            return (
+              <PolygonSection
+                key={index}
+                index={index}
+                dimensions={dimensions}
+                vertices={vertices}
+                color="transparent"
+                name={sectionName[index]}
+                onClick={() => {
+                  goToTab(sectionName[index]);
+                }}
+              />
+            );
+          })}
+        </svg>
+      </div>
     </div>
   );
 };
 
 export default Home;
 
-const sectionName: string[] = ["Menu", "About","=", "Contact", "Tour", "Main", "Credit", "Playground", "ProjectGallery", "Resume"];
+const sectionName: string[] = [
+  "Menu",
+  "About",
+  "=",
+  "Contact",
+  "Tour",
+  "Main",
+  "Credit",
+  "Playground",
+  "ProjectGallery",
+  "Resume",
+];
 
 const layout1: [number, number][][] = [
   [

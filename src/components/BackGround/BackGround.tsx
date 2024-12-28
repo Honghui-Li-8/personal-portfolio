@@ -31,7 +31,7 @@ const BackGround = () => {
   useEffect(() => {
     switch (activeTab) {
       case "Home":
-        setNewbgColor(lightBlue);
+        setNewbgColor("#2D1F56");
         break;
       case "About":
         setNewbgColor(blue);
@@ -129,6 +129,7 @@ const BackGround = () => {
       overflow: "hidden",
       backgroundColor: bgColor, // Use the bgColor prop for background color
       zIndex: -1, // Stay behind other content
+      opacity: 0.8
     },
     circle: {
       width: `${circleSize.width}px`,
@@ -137,6 +138,7 @@ const BackGround = () => {
       backgroundColor: newbgColor, // Use the bgColor prop for background color
       transform: "scale(0)",
       animation: animate ? "expand 2s forwards" : "none",
+      zIndex: 20, // Stay behind other content
     },
   };
 

@@ -31,7 +31,7 @@ const BackGround = () => {
   useEffect(() => {
     switch (activeTab) {
       case "Home":
-        setNewbgColor(lightBlue);
+        setNewbgColor("#2D1F56");
         break;
       case "About":
         setNewbgColor(blue);
@@ -85,15 +85,18 @@ const BackGround = () => {
   /****** Attach Event Listener for background animation ******/
   useEffect(() => {
     const circle = circleRef.current;
-    if (!circle) return;
+    if (!circle) {
+      return;
+    }
 
+    console.log("===== added listener for background animation component ======");
     // Handler for the animationend event
     const handleAnimationEnd = () => {
       console.log("Animation completed!");
       setBgColor(newbgColor);
       setShowTransaction(false);
-      console.log("new bg");
-      console.log(bgColor);
+      console.log("new bg", showTransaction);
+      // console.log(bgColor);
     };
 
     // Add event listener
@@ -101,7 +104,7 @@ const BackGround = () => {
 
     // Cleanup
     return () => circle.removeEventListener("animationend", handleAnimationEnd);
-  }, []);
+  }, [showTransaction]);
 
   /*********** update bg color ***********/
   useEffect(() => {
@@ -126,6 +129,7 @@ const BackGround = () => {
       overflow: "hidden",
       backgroundColor: bgColor, // Use the bgColor prop for background color
       zIndex: -1, // Stay behind other content
+      opacity: 0.8
     },
     circle: {
       width: `${circleSize.width}px`,
@@ -134,6 +138,7 @@ const BackGround = () => {
       backgroundColor: newbgColor, // Use the bgColor prop for background color
       transform: "scale(0)",
       animation: animate ? "expand 2s forwards" : "none",
+      zIndex: 20, // Stay behind other content
     },
   };
 

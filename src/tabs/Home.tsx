@@ -43,7 +43,6 @@ const Home = () => {
         width: "100vw",
         height: "100vh",
         // backgroundColor: "white",
-        opacity: 0.3
       }}
     >
       <div style={{
@@ -55,6 +54,7 @@ const Home = () => {
         height: "calc(100vh - 20px)",
         borderRadius: "5px",
         overflow: "hidden",
+        // opacity: 0.3
       }}>
         <svg
           ref={svgContainerRef}

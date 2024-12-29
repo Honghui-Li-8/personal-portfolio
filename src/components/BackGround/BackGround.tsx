@@ -32,8 +32,8 @@ const BackGround = () => {
   useEffect(() => {
     switch (activeTab) {
       case "Home":
-        // setNewbgColor("#2D1F56");
-        setNewbgColor("lightBlue");
+        setNewbgColor("#2D1F56");
+        // setNewbgColor(lightBlue);
         setHomeMode(true);
         break;
       case "About":
@@ -177,14 +177,14 @@ const BackGround = () => {
           {/* <div id="circle-" style={styles.circle} ref={circleRef}/> */}
         </div>
       )}
-      {homeMode && (
+      {/* {homeMode && (
         <>
           <div style={styles.container} ref={bgRef} />
           <div style={{ ...styles.container, zIndex:20, backgroundColor:"black" }}>
             <div style={styles.circle_front} ref={circleRef} />
           </div>
         </>
-      )}
+      )} */}
     </>
   );
 };

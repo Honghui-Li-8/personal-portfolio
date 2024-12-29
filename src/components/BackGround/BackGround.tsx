@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 
 type Position = "static" | "relative" | "absolute" | "sticky" | "fixed";
 const lightBlue = "#f4f9fc";
+const homeColor = "#2D1F56";
 const blue = "#add8e6";
 const green = "#ccff99";
 const orange = "#ffcc99";
@@ -32,7 +33,7 @@ const BackGround = () => {
   useEffect(() => {
     switch (activeTab) {
       case "Home":
-        setNewbgColor("#2D1F56");
+        setNewbgColor(homeColor);
         // setNewbgColor(lightBlue);
         setHomeMode(true);
         break;
@@ -151,20 +152,6 @@ const BackGround = () => {
       animation: animate ? "expand 1.7s forwards" : "none",
       zIndex: 20, // Stay behind other content
     },
-    circle_front: {
-      width: `${circleSize.width}px`,
-      height: `${circleSize.height}px`,
-      borderRadius: "50%",
-      // backgroundColor: newbgColor, // Use the bgColor prop for background color
-      transform: "scale(0)",
-      // animation: animate ? "expand 2s forwards, fadeToTransparent 2s forwards" : "none",
-      animation: animate ? "expand 2s forwards" : "none",
-      zIndex: 200, // Stay behind other content
-      position: "relative" as Position,
-      opacity:0.1,
-      // backgroundColor: "rgba(173, 216, 230, 0)"
-      backgroundColor: "transparent"
-    },
   };
 
   window.addEventListener("resize", debounce(rescaleToFitScreen, 250));
@@ -177,14 +164,7 @@ const BackGround = () => {
           {/* <div id="circle-" style={styles.circle} ref={circleRef}/> */}
         </div>
       )}
-      {/* {homeMode && (
-        <>
-          <div style={styles.container} ref={bgRef} />
-          <div style={{ ...styles.container, zIndex:20, backgroundColor:"black" }}>
-            <div style={styles.circle_front} ref={circleRef} />
-          </div>
-        </>
-      )} */}
+      {homeMode && <div style={{...styles.container, backgroundColor:homeColor, animation: animate ? "fadeIn 1s forwards" : "none"}} />}
     </>
   );
 };

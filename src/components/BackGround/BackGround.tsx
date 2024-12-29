@@ -148,7 +148,7 @@ const BackGround = () => {
       borderRadius: "50%",
       backgroundColor: newbgColor, // Use the bgColor prop for background color
       transform: "scale(0)",
-      animation: animate ? "expand 2s forwards" : "none",
+      animation: animate ? "expand 1.7s forwards" : "none",
       zIndex: 20, // Stay behind other content
     },
     circle_front: {

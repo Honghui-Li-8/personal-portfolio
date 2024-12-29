@@ -10,9 +10,9 @@ const green = "#ccff99";
 const orange = "#ffcc99";
 
 const BackGround = () => {
-  const [bgColor, setBgColor] = React.useState("black");
-  const [newbgColor, setNewbgColor] = React.useState("#add8e6");
-  const [showTransaction, setShowTransaction] = React.useState(false);
+  const [bgColor, setBgColor] = useState("black");
+  const [newbgColor, setNewbgColor] = useState("#add8e6");
+  const [showTransaction, setShowTransaction] = useState(false);
   const [circleSize, setCircleSize] = useState({ width: 20, height: 20 });
   const activeTab = useSelector((state: RootState) => state.routerState.route);
   const activeTabRef = useRef(activeTab);
@@ -21,6 +21,7 @@ const BackGround = () => {
   const circleRef = useRef<HTMLDivElement | null>(null);
   const animate = true;
 
+  const [homeMode, setHomeMode] = useState(true);
 
   // update the ref of queue
   useEffect(() => {
@@ -31,23 +32,29 @@ const BackGround = () => {
   useEffect(() => {
     switch (activeTab) {
       case "Home":
-        setNewbgColor("#2D1F56");
+        // setNewbgColor("#2D1F56");
+        setNewbgColor("lightBlue");
+        setHomeMode(true);
         break;
       case "About":
         setNewbgColor(blue);
+        setHomeMode(false);
         break;
       case "Contact":
         setNewbgColor(green);
+        setHomeMode(false);
         break;
       case "Projects":
         setNewbgColor(orange);
+        setHomeMode(false);
         break;
       default:
         setNewbgColor("#ffffff");
+        setHomeMode(false);
     }
 
-    console.log("tab", activeTab)
-    console.log("new bg", newbgColor)
+    console.log("tab", activeTab);
+    console.log("new bg", newbgColor);
     setShowTransaction(true);
   }, [activeTab]);
 
@@ -73,12 +80,14 @@ const BackGround = () => {
   }, []);
 
   // prevent too frequent update on windows resize
-  const debounce = (func: () => void, delay: number): () => void => {
+  const debounce = (func: () => void, delay: number): (() => void) => {
     let debounceTimer: ReturnType<typeof setTimeout>;
 
     return function () {
       clearTimeout(debounceTimer);
-      debounceTimer = setTimeout(() => {func()}, delay);
+      debounceTimer = setTimeout(() => {
+        func();
+      }, delay);
     };
   };
 
@@ -89,7 +98,9 @@ const BackGround = () => {
       return;
     }
 
-    console.log("===== added listener for background animation component ======");
+    console.log(
+      "===== added listener for background animation component ======"
+    );
     // Handler for the animationend event
     const handleAnimationEnd = () => {
       console.log("Animation completed!");
@@ -129,7 +140,7 @@ const BackGround = () => {
       overflow: "hidden",
       backgroundColor: bgColor, // Use the bgColor prop for background color
       zIndex: -1, // Stay behind other content
-      opacity: 0.8
+      opacity: 0.8,
     },
     circle: {
       width: `${circleSize.width}px`,
@@ -140,15 +151,41 @@ const BackGround = () => {
       animation: animate ? "expand 2s forwards" : "none",
       zIndex: 20, // Stay behind other content
     },
+    circle_front: {
+      width: `${circleSize.width}px`,
+      height: `${circleSize.height}px`,
+      borderRadius: "50%",
+      // backgroundColor: newbgColor, // Use the bgColor prop for background color
+      transform: "scale(0)",
+      // animation: animate ? "expand 2s forwards, fadeToTransparent 2s forwards" : "none",
+      animation: animate ? "expand 2s forwards" : "none",
+      zIndex: 200, // Stay behind other content
+      position: "relative" as Position,
+      opacity:0.1,
+      // backgroundColor: "rgba(173, 216, 230, 0)"
+      backgroundColor: "transparent"
+    },
   };
 
   window.addEventListener("resize", debounce(rescaleToFitScreen, 250));
 
   return (
-    <div style={styles.container} ref={bgRef}>
-      {showTransaction && <div style={styles.circle} ref={circleRef} />}
-      {/* <div id="circle-" style={styles.circle} ref={circleRef}/> */}
-    </div>
+    <>
+      {!homeMode && (
+        <div style={styles.container} ref={bgRef}>
+          {showTransaction && <div style={styles.circle} ref={circleRef} />}
+          {/* <div id="circle-" style={styles.circle} ref={circleRef}/> */}
+        </div>
+      )}
+      {homeMode && (
+        <>
+          <div style={styles.container} ref={bgRef} />
+          <div style={{ ...styles.container, zIndex:20, backgroundColor:"black" }}>
+            <div style={styles.circle_front} ref={circleRef} />
+          </div>
+        </>
+      )}
+    </>
   );
 };
 

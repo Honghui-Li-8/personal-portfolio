@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import Dimensions, { InnerBoundary } from "../constants/Dimension";
+import Dimensions, { InnerBoundary } from "../../constants/Dimension";
 import PolygonInnerBlock from "./PolygonInnerBlock";
 
 // const calculateCentroid = (

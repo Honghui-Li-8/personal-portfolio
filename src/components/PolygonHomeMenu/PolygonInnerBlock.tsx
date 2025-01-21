@@ -1,5 +1,5 @@
 import { color } from "framer-motion";
-import { InnerBoundary } from "../constants/Dimension";
+import { InnerBoundary } from "../../constants/Dimension";
 
 const PolygonInnerBlock = ({
   name,

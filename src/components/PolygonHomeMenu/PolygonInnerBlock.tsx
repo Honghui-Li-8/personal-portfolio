@@ -36,7 +36,7 @@ const PolygonInnerBlock = ({
           display: "flex",
           width: bBox.width,
           height: bBox.height,
-          background: "yellow",
+          background: "none",
           // background: index === 2 ? "yellow" : "none",
           opacity: 0.7,
           alignItems: "center",

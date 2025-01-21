@@ -46,11 +46,14 @@ const Home = () => {
           backgroundImage: `url(${image1})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
-          backgroundColor: "transparent",
+          // backgroundColor: "yellow",
           width: "calc(100vw - 20px)",
           height: "calc(100vh - 20px)",
           borderRadius: "10px",
           overflow: "hidden",
+          outline: "5px solid rgba(255, 255, 255, 0.13)",
+          // border: "2px solid white",
+          // boxShadow: "5 5 30px rgba(238, 248, 100, 0.25)",
         }}
       >
         <PolygonHomeMenu

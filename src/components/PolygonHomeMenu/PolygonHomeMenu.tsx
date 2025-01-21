@@ -35,8 +35,10 @@ const PolygonHomeMenu = ({
             color="transparent"
             name={name}
             onClick={() => {
-              // goToTab(name);
-              setFocusIndex(index);
+              if (index === focusIndex) 
+                goToTab(name);
+              else
+                setFocusIndex(index);
             }}
           />
         );

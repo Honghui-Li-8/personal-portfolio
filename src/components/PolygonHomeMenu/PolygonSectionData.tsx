@@ -24,6 +24,13 @@ export const sectionName: string[] = [
   "Resume",
 ];
 
+export const initialPos: [number, number][] = [
+  [0.5, 0.45],
+  [0.55, 0.5],
+  [0.5, 0.55],
+  [0.55, 0.5],
+]
+
 export const layout_base: [number, number][][] = [
   [
     [0.0, 0.0],

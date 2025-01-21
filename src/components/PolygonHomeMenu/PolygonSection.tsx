@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import Dimensions, { InnerBoundary } from "../../constants/Dimension";
 import PolygonInnerBlock from "./PolygonInnerBlock";
-import { layout_base, layout_focus_5 } from "./PolygonSectionData";
+import { layout_base, layout_focus_5, initialPos } from "./PolygonSectionData";
 import {calculateInnerBoundary, calculatePoints} from "../../scripts/polygonUtility";
 import { useSpring, animated } from "@react-spring/web";
 
@@ -25,7 +25,9 @@ const PolygonSection = ({
   const [bBox, setBBox] = useState({ width: 0, height: 0 });
   const [hovered, setHovered] = useState(false);
   const [points, setPoints] = useState(calculatePoints(layout_base[index], dimensions));
-  const vertices: [number, number][] = layout_base[index]; //-----------------
+  // const [points, setPoints] = useState(calculatePoints(layout_base[index], dimensions));
+  const [innerBoundary, setInnerBoundary] = useState(calculateInnerBoundary(layout_base[index], dimensions));
+  // const vertices: [number, number][] = layout_base[index]; //-----------------
 
   const animatedProps = useSpring({
     points, // Target points
@@ -45,10 +47,10 @@ const PolygonSection = ({
   const handleMouseEnter = () => setHovered(true);
   const handleMouseLeave = () => setHovered(false);
 
-  const innerBoundaryVar = useMemo(
-    () => calculateInnerBoundary(vertices, dimensions),
-    [vertices, dimensions]
-  );
+  // const innerBoundary = useMemo(
+  //   () => calculateInnerBoundary(animatedProps.points),
+  //   [points]
+  // );
   // const points = useMemo(
   //   () => calculatePoints(vertices, dimensions),
   //   [vertices, dimensions]
@@ -63,7 +65,7 @@ const PolygonSection = ({
         height: bbox.height,
       });
     }
-  }, [innerBoundaryVar]); // weird but works, need to wait for polygon finish drawing to get the bbox
+  }, [innerBoundary]); // weird but works, need to wait for polygon finish drawing to get the bbox
 
   // Scaling the text on hover
   const textScale = hovered ? 1.3 : 1; // Expand the text by 30% on hover
@@ -102,9 +104,9 @@ const PolygonSection = ({
         name={name}
         index={index}
         bBox={bBox}
-        innerBoundary={innerBoundaryVar[0]}
-        x={innerBoundaryVar[1]}
-        y={innerBoundaryVar[2]}
+        innerBoundary={innerBoundary[0]}
+        x={innerBoundary[1]}
+        y={innerBoundary[2]}
       />
     </g>
   );

@@ -20,6 +20,8 @@ export const calculateCentroid = (
   };
 };
 
+
+// used vertex (0-1)
 export const calculateInnerBoundary = (
   vertices: [number, number][],
   dimensions: Dimensions
@@ -84,6 +86,73 @@ export const calculateInnerBoundary = (
     },
     left[0] * dimensions.width,
     down[0] * dimensions.height,
+  ];
+};
+
+// use point px coord
+export const calculateInnerBoundaryByPoints = (
+  points: [number, number][]
+): [InnerBoundary, number, number] => {
+  // Locate 2 most outset point on all 4 direction
+  let left = [points[0][0], points[0][0]];
+  let right = [points[0][0], points[0][0]];
+  let top = [points[0][1], points[0][1]];
+  let down = [points[0][1], points[0][1]];
+
+  for (let i = 1; i < points.length; ++i) {
+    const cx = points[i][0];
+    const cy = points[i][1];
+
+    // 1) left
+    if (cx < left[0]) {
+      // most left
+      left[1] = left[0];
+      left[0] = cx;
+    } else if (cx < left[1]) {
+      // 2nd most left
+      left[1] = cx;
+    }
+
+    // 2) right
+    if (cx > right[0]) {
+      // most right
+      right[1] = right[0];
+      right[0] = cx;
+    } else if (cx > right[1]) {
+      // 2nd most right
+      right[1] = cx;
+    }
+
+    // 3) top
+    if (cy > top[0]) {
+      // most top
+      top[1] = top[0];
+      top[0] = cy;
+    } else if (cy > top[1]) {
+      // 2nd most top
+      top[1] = cy;
+    }
+
+    // 4) down
+    if (cy < down[0]) {
+      // most down
+      down[1] = down[0];
+      down[0] = cy;
+    } else if (cy < down[1]) {
+      // 2nd most down
+      down[1] = cy;
+    }
+  }
+
+  return [
+    {
+      left: ((left[0] + left[1]) / 2),
+      right: ((right[0] + right[1]) / 2),
+      top: ((top[0] + top[1]) / 2),
+      down: ((down[0] + down[1]) / 2),
+    },
+    left[0],
+    down[0],
   ];
 };
 

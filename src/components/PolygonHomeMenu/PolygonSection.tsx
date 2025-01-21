@@ -1,10 +1,16 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import Dimensions, { InnerBoundary } from "../../constants/Dimension";
 import PolygonInnerBlock from "./PolygonInnerBlock";
-import { layout_base, layout_focus_5, initialPos } from "./PolygonSectionData";
-import {calculateInnerBoundary, calculatePoints} from "../../scripts/polygonUtility";
+import {
+  layout_base,
+  layout_focus_5,
+  layout_initial,
+} from "./PolygonSectionData";
+import {
+  calculateInnerBoundary,
+  calculatePoints,
+} from "../../scripts/polygonUtility";
 import { useSpring, animated } from "@react-spring/web";
-
 
 const PolygonSection = ({
   index,
@@ -14,8 +20,8 @@ const PolygonSection = ({
   name,
   onClick,
 }: {
-  index:number;
-  focusIndex:number;
+  index: number;
+  focusIndex: number;
   dimensions: Dimensions;
   color: string;
   name: string;
@@ -23,25 +29,56 @@ const PolygonSection = ({
 }) => {
   const polygonRef = useRef<SVGPolygonElement | null>(null);
   const [bBox, setBBox] = useState({ width: 0, height: 0 });
+  const [loaded, setLoaded] = useState(false);
   const [hovered, setHovered] = useState(false);
-  const [points, setPoints] = useState(calculatePoints(layout_base[index], dimensions));
+  const [points, setPoints] = useState(
+    calculatePoints(layout_initial[index], dimensions)
+  );
   // const [points, setPoints] = useState(calculatePoints(layout_base[index], dimensions));
-  const [innerBoundary, setInnerBoundary] = useState(calculateInnerBoundary(layout_base[index], dimensions));
+  const [innerBoundary, setInnerBoundary] = useState(
+    calculateInnerBoundary(layout_base[index], dimensions)
+  );
   // const vertices: [number, number][] = layout_base[index]; //-----------------
 
   const animatedProps = useSpring({
-    points, // Target points
+    from: {
+      points: calculatePoints(layout_initial[index], dimensions), // Initial collapsed state
+      innerBoundary: calculateInnerBoundary(layout_initial[index], dimensions), // Ensure consistent structure
+    },
+    to: {
+      points, // Target points from state
+      innerBoundary,
+    },
     config: { tension: 120, friction: 14 }, // Control smoothness
+    // immediate: !loaded, // remove animation on first load
   });
 
   useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoaded(true);
+    }, 50); // 0.5 seconds
+
+    return () => clearTimeout(timer); // Cleanup to avoid memory leaks
+  }, []);
+
+  useEffect(() => {
     // const vertices: [number, number][] = layout_base[index];
+    // if (!loaded) {
+    //   setPoints(calculatePoints(layout_initial[index], dimensions));
+    //   setInnerBoundary(calculateInnerBoundary(layout_initial[index], dimensions));
+    //   return;
+    // }
+
     if (focusIndex === 5) {
-      setPoints(calculatePoints(layout_focus_5[index], dimensions))
+      setPoints(calculatePoints(layout_focus_5[index], dimensions));
+      setInnerBoundary(
+        calculateInnerBoundary(layout_focus_5[index], dimensions)
+      );
     } else {
-      setPoints(calculatePoints(layout_base[index], dimensions))
+      setPoints(calculatePoints(layout_base[index], dimensions));
+      setInnerBoundary(calculateInnerBoundary(layout_base[index], dimensions));
     }
-  }, [focusIndex, index, dimensions])
+  }, [loaded, focusIndex, index, dimensions]);
 
   // Handle hover state for the entire SVG (polygon + text)
   const handleMouseEnter = () => setHovered(true);

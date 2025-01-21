@@ -6,7 +6,6 @@ import { AppDispatch } from "../../store/datastore";
 import { useDispatch } from "react-redux";
 import { navigate } from "../../store/RouterSlice";
 
-
 const PolygonHomeMenu = ({
   dimensions,
   svgContainerRef,
@@ -16,7 +15,6 @@ const PolygonHomeMenu = ({
 }) => {
   const dispatch = useDispatch<AppDispatch>();
   const [focusIndex, setFocusIndex] = useState(0);
-
 
   const goToTab = (tabName: string) => {
     dispatch(navigate({ newRoute: tabName }));
@@ -35,10 +33,8 @@ const PolygonHomeMenu = ({
             color="transparent"
             name={name}
             onClick={() => {
-              if (index === focusIndex) 
-                goToTab(name);
-              else
-                setFocusIndex(index);
+              if (index === focusIndex) goToTab(name);
+              else setFocusIndex(index);
             }}
           />
         );

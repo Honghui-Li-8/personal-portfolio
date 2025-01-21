@@ -54,7 +54,7 @@ const PolygonSection = ({
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoaded(true);
-    }, 50); // 0.5 seconds
+    }, 250); // 0.5 seconds
 
     return () => clearTimeout(timer); // Cleanup to avoid memory leaks
   }, []);
@@ -82,11 +82,6 @@ const PolygonSection = ({
   const handleMouseEnter = () => setHovered(true);
   const handleMouseLeave = () => setHovered(false);
 
-  const loadingFlag = useMemo(
-    () => calculateInnerBoundary(layout_base[0], dimensions),
-    [index]
-  );
-
   /***** Wait for polygon drawing *****/
   useEffect(() => {
     if (polygonRef.current) {
@@ -96,7 +91,7 @@ const PolygonSection = ({
         height: bbox.height,
       });
     }
-  }, [innerBoundary]); // weird but works, need to wait for polygon finish drawing to get the bbox
+  }, [loaded, innerBoundary]); // weird but works, need to wait for polygon finish drawing to get the bbox
 
   // Scaling the text on hover
   const textScale = hovered ? 1.3 : 1; // Expand the text by 30% on hover

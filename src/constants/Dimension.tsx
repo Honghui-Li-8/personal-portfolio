@@ -8,6 +8,8 @@ export interface InnerBoundary {
   right:number,
   top:number,
   down:number,
+  x:number,
+  y:number
 }
 
 export default Dimensions;

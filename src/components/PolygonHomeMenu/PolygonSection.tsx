@@ -141,9 +141,7 @@ const PolygonSection = ({
         name={name}
         index={index}
         bBox={bBox}
-        innerBoundary={innerBoundary[0]}
-        x={innerBoundary[1]}
-        y={innerBoundary[2]}
+        innerBoundary={innerBoundary}
       />
     </g>
   );

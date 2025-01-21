@@ -6,18 +6,16 @@ const PolygonInnerBlock = ({
   index,
   bBox,
   innerBoundary,
-  x,
-  y,
 }: {
   name: string;
   index:number;
   bBox: { width: number; height: number };
   innerBoundary: InnerBoundary;
-  x: number;
-  y: number;
 }) => {
-  const top = innerBoundary.down - y; // since UI top (smaller y value) is math down (smaller y value)
-  let left = innerBoundary.left - x;
+  const x = innerBoundary.x;
+  const y = innerBoundary.y;
+  const top = innerBoundary.down - innerBoundary.y; // since UI top (smaller y value) is math down (smaller y value)
+  let left = innerBoundary.left - innerBoundary.x;
   const width = innerBoundary.right - innerBoundary.left;
   let height = innerBoundary.top - innerBoundary.down;
   

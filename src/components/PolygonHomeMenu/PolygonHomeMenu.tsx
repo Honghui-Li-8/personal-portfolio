@@ -6,6 +6,7 @@ import { AppDispatch } from "../../store/datastore";
 import { useDispatch } from "react-redux";
 import { navigate } from "../../store/RouterSlice";
 
+
 const PolygonHomeMenu = ({
   dimensions,
   svgContainerRef,
@@ -14,6 +15,8 @@ const PolygonHomeMenu = ({
   svgContainerRef: React.RefObject<SVGSVGElement>;
 }) => {
   const dispatch = useDispatch<AppDispatch>();
+  const [focusIndex, setFocusIndex] = useState(0);
+
 
   const goToTab = (tabName: string) => {
     dispatch(navigate({ newRoute: tabName }));
@@ -22,17 +25,18 @@ const PolygonHomeMenu = ({
   return (
     <svg ref={svgContainerRef} style={styles.svgContainer}>
       <LinearGradientDefine />
-      {layout1.map((vertices, index) => {
+      {sectionName.map((name, index) => {
         return (
           <PolygonSection
             key={index}
             index={index}
+            focusIndex={focusIndex}
             dimensions={dimensions}
-            vertices={vertices}
             color="transparent"
-            name={sectionName[index]}
+            name={name}
             onClick={() => {
-              goToTab(sectionName[index]);
+              // goToTab(name);
+              setFocusIndex(index);
             }}
           />
         );
@@ -70,6 +74,7 @@ const styles: { [key: string]: React.CSSProperties } = {
     opacity: 1,
   },
 };
+
 const sectionName: string[] = [
   "Menu",
   "About",
@@ -81,67 +86,4 @@ const sectionName: string[] = [
   "Playground",
   "ProjectGallery",
   "Resume",
-];
-
-const layout1: [number, number][][] = [
-  [
-    [0.0, 0.0],
-    [0.215, 0.0],
-    [0.175, 0.328],
-    [0.0, 0.443],
-  ],
-  [
-    [0.215, 0.0],
-    [0.175, 0.328],
-    [0.583, 0.062],
-    [0.514, 0.0],
-  ],
-  [
-    [0.514, 0.0],
-    [0.583, 0.062],
-    [0.678, 0.0],
-  ],
-  [
-    [0.678, 0.0],
-    [0.583, 0.062],
-    [1.0, 0.432],
-    [1.0, 0.0],
-  ],
-  [
-    [0.0, 0.443],
-    [0.175, 0.328],
-    [0.107, 0.882],
-    [0.0, 0.895],
-  ],
-  [
-    [0.175, 0.328],
-    [0.583, 0.062],
-    [1.0, 0.432],
-    [1.0, 0.625],
-    [0.885, 0.785],
-    [0.107, 0.882],
-  ],
-  [
-    [1.0, 0.625],
-    [0.885, 0.785],
-    [1.0, 0.771],
-  ],
-  [
-    [0.0, 0.895],
-    [0.107, 0.882],
-    [0.092, 1.0],
-    [0.0, 1.0],
-  ],
-  [
-    [0.092, 1.0],
-    [0.107, 0.882],
-    [0.885, 0.785],
-    [0.729, 1.0],
-  ],
-  [
-    [0.729, 1.0],
-    [0.885, 0.785],
-    [1.0, 0.771],
-    [1.0, 1.0],
-  ],
 ];

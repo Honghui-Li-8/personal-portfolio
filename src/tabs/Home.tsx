@@ -31,31 +31,8 @@ const Home = () => {
   }, []);
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        width: "100vw",
-        height: "100vh",
-        // backgroundColor: "white",
-      }}
-    >
-      <div
-        style={{
-          backgroundImage: `url(${image1})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          // backgroundColor: "yellow",
-          width: "calc(100vw - 20px)",
-          height: "calc(100vh - 20px)",
-          borderRadius: "10px",
-          overflow: "hidden",
-          outline: "5px solid rgba(255, 255, 255, 0.13)",
-          // border: "2px solid white",
-          // boxShadow: "5 5 30px rgba(238, 248, 100, 0.25)",
-        }}
-      >
+    <div style={styles.page}>
+      <div style={styles.container}>
         <PolygonHomeMenu
           dimensions={dimensions}
           svgContainerRef={svgContainerRef}
@@ -66,3 +43,27 @@ const Home = () => {
 };
 
 export default Home;
+
+const styles: { [key: string]: React.CSSProperties } = {
+  page: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    width: "100vw",
+    height: "100vh",
+  },
+  container: {
+    backgroundImage: `url(${image1})`,
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    // backgroundColor: "yellow",
+    width: "calc(100vw - 20px)",
+    height: "calc(100vh - 20px)",
+    borderRadius: "10px",
+    overflow: "hidden",
+    outline: "5px solid rgba(255, 255, 255, 0.15)",
+    // outline: "5px solid rgba(202, 240, 248, 0.2)",
+    // border: "2px solid white",
+    // boxShadow: "5 5 30px rgba(238, 248, 100, 0.25)",
+  },
+};

@@ -108,7 +108,7 @@ const calculatePoints = (
     if (vertices[i][1] === 0) {
       y -= 5;
     } else if (vertices[i][1] === 1) {
-      x += 5;
+      y += 5;
     }
 
     result += x.toString() + ", " + y.toString();

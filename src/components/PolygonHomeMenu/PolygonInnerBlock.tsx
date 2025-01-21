@@ -31,17 +31,18 @@ const PolygonInnerBlock = ({
       width={"" + bBox.width}
       height={"" + bBox.height}
     >
-      {/* <div
+      <div
         style={{
           display: "flex",
           width: bBox.width,
           height: bBox.height,
-          background: index === 2 ? "yellow" : "none",
+          background: "yellow",
+          // background: index === 2 ? "yellow" : "none",
           opacity: 0.7,
           alignItems: "center",
           justifyContent: "center",
         }}
-      > */}
+      >
         <div
           id={name}
           style={{
@@ -61,7 +62,7 @@ const PolygonInnerBlock = ({
         >
           {name}
         </div>
-      {/* </div> */}
+      </div>
     </foreignObject>
     // <text
     //   // x={centroid.x}

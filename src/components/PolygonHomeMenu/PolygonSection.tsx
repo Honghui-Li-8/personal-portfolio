@@ -43,11 +43,9 @@ const PolygonSection = ({
   const animatedProps = useSpring({
     from: {
       points: calculatePoints(layout_initial[index], dimensions), // Initial collapsed state
-      innerBoundary: calculateInnerBoundary(layout_initial[index], dimensions), // Ensure consistent structure
     },
     to: {
       points, // Target points from state
-      innerBoundary,
     },
     config: { tension: 120, friction: 14 }, // Control smoothness
     // immediate: !loaded, // remove animation on first load
@@ -84,14 +82,10 @@ const PolygonSection = ({
   const handleMouseEnter = () => setHovered(true);
   const handleMouseLeave = () => setHovered(false);
 
-  // const innerBoundary = useMemo(
-  //   () => calculateInnerBoundary(animatedProps.points),
-  //   [points]
-  // );
-  // const points = useMemo(
-  //   () => calculatePoints(vertices, dimensions),
-  //   [vertices, dimensions]
-  // );
+  const loadingFlag = useMemo(
+    () => calculateInnerBoundary(layout_base[0], dimensions),
+    [index]
+  );
 
   /***** Wait for polygon drawing *****/
   useEffect(() => {

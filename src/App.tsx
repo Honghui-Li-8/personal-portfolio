@@ -11,18 +11,25 @@ import { RootState } from "./store/datastore";
 const pageTransitions = {
   initial: { opacity: 0, y: 30 },
   animate: { opacity: 1, y: 0, transition: { duration: 0.5 } },
-  exit: { opacity: 0, y: -30, transition: { duration: 1 } },
+  exit: { opacity: 0, y: -30, transition: { duration: 0.8 } },
+};
+
+const homePageTransitions = {
+  initial: { opacity: 0, y: 0 },
+  animate: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+  exit: { opacity: 0, y: 0, transition: { duration: 0.8 } },
 };
 
 const App: React.FC = () => {
   const activeTab = useSelector((state: RootState) => state.routerState.route);
+  const isHome = activeTab === "Home" || activeTab === "/" || activeTab === "";
 
   const renderComponent = () => {
     switch (activeTab) {
-      case "/":
-      case "":
-      case "Home":
-        return <Home />;
+      // case "/":
+      // case "":
+      // case "Home":
+      //   return <Home />;
       case "About":
         return <About />;
       default:
@@ -35,15 +42,29 @@ const App: React.FC = () => {
       <BackGround />
 
       <AnimatePresence mode="wait">
-        <motion.div
-          key={activeTab}
-          variants={pageTransitions}
-          initial="initial"
-          animate="animate"
-          exit="exit"
-        >
-          {renderComponent()}
-        </motion.div>
+        {isHome && (
+          <motion.div
+            key={activeTab}
+            variants={homePageTransitions}
+            initial="initial"
+            animate="animate"
+            exit="exit"
+          >
+            <Home />
+          </motion.div>
+        )}
+
+        {!isHome && (
+          <motion.div
+            key={activeTab}
+            variants={pageTransitions}
+            initial="initial"
+            animate="animate"
+            exit="exit"
+          >
+            {renderComponent()}
+          </motion.div>
+        )}
       </AnimatePresence>
     </>
   );

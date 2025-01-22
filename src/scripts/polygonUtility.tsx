@@ -27,12 +27,12 @@ export const calculateInnerBoundary = (
   dimensions: Dimensions
 ): InnerBoundary => {
   // Locate 2 most outset point on all 4 direction
-  let left = [vertices[0][0], vertices[0][0]];
-  let right = [vertices[0][0], vertices[0][0]];
-  let top = [vertices[0][1], vertices[0][1]];
-  let down = [vertices[0][1], vertices[0][1]];
+  let left = [99999, 99999];
+  let right = [-1, -1];
+  let top = [-1, -1];
+  let down = [99999, 99999];
 
-  for (let i = 1; i < vertices.length; ++i) {
+  for (let i = 0; i < vertices.length; ++i) {
     const cx = vertices[i][0];
     const cy = vertices[i][1];
 
@@ -52,8 +52,11 @@ export const calculateInnerBoundary = (
       right[1] = right[0];
       right[0] = cx;
     } else if (cx > right[1]) {
-      // 2nd most right
-      right[1] = cx;
+      // special case for middle block, ignore right tie case
+      if (vertices.length !== 6 ||  cx !== right[0]) {
+        // 2nd most right
+        right[1] = cx;
+      }
     }
 
     // 3) top
@@ -77,15 +80,25 @@ export const calculateInnerBoundary = (
     }
   }
 
-  return {
-      left: ((left[0] + left[1]) / 2) * dimensions.width,
-      right: ((right[0] + right[1]) / 2) * dimensions.width,
-      top: ((top[0] + top[1]) / 2) * dimensions.height,
-      down: ((down[0] + down[1]) / 2) * dimensions.height,
-      x: left[0] * dimensions.width,
-      y: down[0] * dimensions.height,
-    }
-  ;
+  const result = {
+    left: ((left[0] + left[1]) / 2) * dimensions.width,
+    right: ((right[0] + right[1]) / 2) * dimensions.width,
+    top: ((top[0] + top[1]) / 2) * dimensions.height,
+    down: ((down[0] + down[1]) / 2) * dimensions.height,
+    x: left[0] * dimensions.width,
+    y: down[0] * dimensions.height,
+  };
+
+  
+  
+  if (vertices[0][0] === 0.729 || vertices[0][0] === 0.773) {
+    // console.log(vertices)
+    console.log(left)
+    // console.log(dimensions.width)
+    console.info(result.left)
+  }
+
+  return result;
 };
 
 export const calculatePoints = (

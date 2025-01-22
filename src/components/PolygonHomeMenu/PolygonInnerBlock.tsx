@@ -39,18 +39,18 @@ const PolygonInnerBlock = ({
         transition: "all 0.3s ease-in-out",
       }}
     >
-      {/* <div
+      <div
         style={{
           display: "flex",
           width: bBox.width,
           height: bBox.height,
           // background: "yellow",
-          background: index === 2 ? "yellow" : "none",
+          background: index === 4 ? "yellow" : "none",
           opacity: 0.7,
           alignItems: "center",
           justifyContent: "center",
         }}
-      > */}
+      >
         <div
           id={name}
           style={{
@@ -61,7 +61,7 @@ const PolygonInnerBlock = ({
             height,
             // background: "orange",
             // background: name === "Credit" ? "orange" : "none",
-            // background: index === 9 ? "orange" : "none",
+            background: index === 4 ? "orange" : "none",
             opacity: 0.7,
             zIndex: 3,
             alignItems: "center",
@@ -73,7 +73,7 @@ const PolygonInnerBlock = ({
         >
           {name}
         </div>
-      {/* </div> */}
+      </div>
     </foreignObject>
     // <text
     //   // x={centroid.x}

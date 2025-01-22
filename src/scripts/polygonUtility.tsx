@@ -91,12 +91,12 @@ export const calculateInnerBoundary = (
 
   
   
-  if (vertices[0][0] === 0.729 || vertices[0][0] === 0.773) {
-    // console.log(vertices)
-    console.log(left)
-    // console.log(dimensions.width)
-    console.info(result.left)
-  }
+  // if (vertices[0][0] === 0.729 || vertices[0][0] === 0.773) {
+  //   // console.log(vertices)
+  //   console.log(left)
+  //   // console.log(dimensions.width)
+  //   console.info(result.left)
+  // }
 
   return result;
 };

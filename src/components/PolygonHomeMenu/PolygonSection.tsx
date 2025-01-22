@@ -87,13 +87,25 @@ const PolygonSection = ({
 
   /***** Wait for polygon drawing *****/
   useEffect(() => {
-    if (polygonRef.current) {
+    const updateBBox = () => {
+      if (!polygonRef.current) return;
+
       const bbox = polygonRef.current.getBBox();
       setBBox({
         width: bbox.width,
         height: bbox.height,
       });
-    }
+    };
+
+    // Initial bounding box measurement
+    updateBBox();
+
+    // // Use ResizeObserver to auto-update on size changes
+    if (!polygonRef.current) return;
+    const observer = new ResizeObserver(updateBBox);
+    observer.observe(polygonRef.current);
+
+    return () => observer.disconnect();
   }, [loaded]); // need to wait for polygon finish drawing to get the bbox
 
   // Scaling the text on hover

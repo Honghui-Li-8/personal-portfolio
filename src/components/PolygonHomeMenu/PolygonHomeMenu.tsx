@@ -32,10 +32,12 @@ const PolygonHomeMenu = ({
             dimensions={dimensions}
             color="transparent"
             name={name}
-            onClick={() => {
-              if (index === focusIndex) goToTab(name);
-              else setFocusIndex(index);
-            }}
+            onClick={() => goToTab(name)}
+            setFocusIndex={setFocusIndex}
+            // onClick={() => {
+            //   if (index === focusIndex) goToTab(name);
+            //   else setFocusIndex(index);
+            // }}
           />
         );
       })}

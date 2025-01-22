@@ -19,6 +19,7 @@ const PolygonSection = ({
   color,
   name,
   onClick,
+  setFocusIndex,
 }: {
   index: number;
   focusIndex: number;
@@ -26,6 +27,7 @@ const PolygonSection = ({
   color: string;
   name: string;
   onClick: React.MouseEventHandler<SVGPolygonElement>;
+  setFocusIndex: React.Dispatch<React.SetStateAction<number>>
 }) => {
   const polygonRef = useRef<SVGPolygonElement | null>(null);
   const [bBox, setBBox] = useState({ width: 0, height: 0 });
@@ -67,6 +69,12 @@ const PolygonSection = ({
     //   return;
     // }
 
+    // if (focusIndex === 1) {
+    //   setPoints(calculatePoints(layout_focus_5_2[index], dimensions));
+    //   setInnerBoundary(
+    //     calculateInnerBoundary(layout_focus_5_2[index], dimensions)
+    //   );
+    // }
     if (focusIndex === 5) {
       setPoints(calculatePoints(layout_focus_5[index], dimensions));
       setInnerBoundary(
@@ -79,8 +87,20 @@ const PolygonSection = ({
   }, [loaded, focusIndex, index, dimensions]);
 
   // Handle hover state for the entire SVG (polygon + text)
-  const handleMouseEnter = () => setHovered(true);
-  const handleMouseLeave = () => setHovered(false);
+  const handleMouseEnter = () => {
+    if (index === 5) {
+      setFocusIndex(index);
+    }
+
+    setHovered(true);
+  }
+  const handleMouseLeave = () => {
+    if (index === 5) {
+      setFocusIndex(-1);
+    }
+    
+    setHovered(false);
+  }
 
   /***** Wait for polygon drawing *****/
   useEffect(() => {

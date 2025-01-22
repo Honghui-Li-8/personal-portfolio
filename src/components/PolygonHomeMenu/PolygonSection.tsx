@@ -27,18 +27,15 @@ const PolygonSection = ({
   color: string;
   name: string;
   onClick: React.MouseEventHandler<SVGPolygonElement>;
-  setFocusIndex: React.Dispatch<React.SetStateAction<number>>
+  setFocusIndex: React.Dispatch<React.SetStateAction<number>>;
 }) => {
   const polygonRef = useRef<SVGPolygonElement | null>(null);
   const [bBox, setBBox] = useState({ width: 0, height: 0 });
   const [loaded, setLoaded] = useState(false);
   const [hovered, setHovered] = useState(false);
+  const [vertices, setVertices] = useState(layout_initial[index]);
   const [points, setPoints] = useState(
     calculatePoints(layout_initial[index], dimensions)
-  );
-  // const [points, setPoints] = useState(calculatePoints(layout_base[index], dimensions));
-  const [innerBoundary, setInnerBoundary] = useState(
-    calculateInnerBoundary(layout_base[index], dimensions)
   );
   // const vertices: [number, number][] = layout_base[index]; //-----------------
 
@@ -62,27 +59,12 @@ const PolygonSection = ({
   }, []);
 
   useEffect(() => {
-    // const vertices: [number, number][] = layout_base[index];
-    // if (!loaded) {
-    //   setPoints(calculatePoints(layout_initial[index], dimensions));
-    //   setInnerBoundary(calculateInnerBoundary(layout_initial[index], dimensions));
-    //   return;
-    // }
-
-    // if (focusIndex === 1) {
-    //   setPoints(calculatePoints(layout_focus_5_2[index], dimensions));
-    //   setInnerBoundary(
-    //     calculateInnerBoundary(layout_focus_5_2[index], dimensions)
-    //   );
-    // }
     if (focusIndex === 5) {
+      setVertices(layout_focus_5[index]);
       setPoints(calculatePoints(layout_focus_5[index], dimensions));
-      setInnerBoundary(
-        calculateInnerBoundary(layout_focus_5[index], dimensions)
-      );
     } else {
+      setVertices(layout_base[index]);
       setPoints(calculatePoints(layout_base[index], dimensions));
-      setInnerBoundary(calculateInnerBoundary(layout_base[index], dimensions));
     }
   }, [loaded, focusIndex, index, dimensions]);
 
@@ -93,14 +75,15 @@ const PolygonSection = ({
     }
 
     setHovered(true);
-  }
+  };
+
   const handleMouseLeave = () => {
     if (index === 5) {
       setFocusIndex(-1);
     }
-    
+
     setHovered(false);
-  }
+  };
 
   /***** Wait for polygon drawing *****/
   useEffect(() => {
@@ -111,7 +94,7 @@ const PolygonSection = ({
         height: bbox.height,
       });
     }
-  }, [loaded, innerBoundary]); // weird but works, need to wait for polygon finish drawing to get the bbox
+  }, [loaded]); // need to wait for polygon finish drawing to get the bbox
 
   // Scaling the text on hover
   const textScale = hovered ? 1.3 : 1; // Expand the text by 30% on hover
@@ -149,8 +132,9 @@ const PolygonSection = ({
       <PolygonInnerBlock
         name={name}
         index={index}
+        vertices={vertices}
+        dimensions={dimensions}
         bBox={bBox}
-        innerBoundary={innerBoundary}
       />
     </g>
   );

@@ -1,23 +1,28 @@
 import { color } from "framer-motion";
-import { InnerBoundary } from "../../constants/Dimension";
+import Dimensions, { InnerBoundary } from "../../constants/Dimension";
+import {calculateInnerBoundary} from "../../scripts/polygonUtility";
+import {useState} from "react";
 
 const PolygonInnerBlock = ({
   name,
   index,
+  vertices,
+  dimensions,
   bBox,
-  innerBoundary,
 }: {
   name: string;
   index:number;
+  vertices: [number, number][];
+  dimensions: Dimensions;
   bBox: { width: number; height: number };
-  innerBoundary: InnerBoundary;
 }) => {
-  const x = innerBoundary.x;
-  const y = innerBoundary.y;
-  const top = innerBoundary.down - innerBoundary.y; // since UI top (smaller y value) is math down (smaller y value)
-  let left = innerBoundary.left - innerBoundary.x;
-  const width = innerBoundary.right - innerBoundary.left;
-  let height = innerBoundary.top - innerBoundary.down;
+  const boundary = calculateInnerBoundary(vertices, dimensions);
+  const x = boundary.x;
+  const y = boundary.y;
+  const top = boundary.down - boundary.y; // since UI top (smaller y value) is math down (smaller y value)
+  let left = boundary.left - boundary.x;
+  const width = boundary.right - boundary.left;
+  let height = boundary.top - boundary.down;
   
   if (index === 2) {
     height *= 1.5;
@@ -30,6 +35,9 @@ const PolygonInnerBlock = ({
       y={"" + y}
       width={"" + bBox.width}
       height={"" + bBox.height}
+      style={{
+        transition: "all 0.3s ease-in-out",
+      }}
     >
       {/* <div
         style={{
@@ -53,12 +61,14 @@ const PolygonInnerBlock = ({
             height,
             // background: "orange",
             // background: name === "Credit" ? "orange" : "none",
-            background: index === 5 ? "orange" : "none",
+            // background: index === 9 ? "orange" : "none",
             opacity: 0.7,
             zIndex: 3,
             alignItems: "center",
             justifyContent: "center",
             position: "absolute",
+            transition: "all 0.3s ease-in-out",
+            // transition: "width 0.5s ease-in-out, height 0.5s ease-in-out",
           }}
         >
           {name}

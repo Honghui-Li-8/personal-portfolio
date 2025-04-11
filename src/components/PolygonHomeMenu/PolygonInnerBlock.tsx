@@ -1,7 +1,8 @@
 import { color } from "framer-motion";
 import Dimensions, { InnerBoundary } from "../../constants/Dimension";
-import {calculateInnerBoundary} from "../../scripts/polygonUtility";
-import {useState} from "react";
+import { calculateInnerBoundary } from "../../scripts/polygonUtility";
+import { ReactNode, useState } from "react";
+import MainSection from "./MenuSectionContent/Main";
 
 const PolygonInnerBlock = ({
   name,
@@ -11,7 +12,7 @@ const PolygonInnerBlock = ({
   bBox,
 }: {
   name: string;
-  index:number;
+  index: number;
   vertices: [number, number][];
   dimensions: Dimensions;
   bBox: { width: number; height: number };
@@ -23,11 +24,19 @@ const PolygonInnerBlock = ({
   let left = boundary.left - boundary.x;
   const width = boundary.right - boundary.left;
   let height = boundary.top - boundary.down;
-  
+
   if (index === 2) {
     height *= 1.5;
     left += width / 10;
   }
+
+  const getSectionContent = (name: string):ReactNode => {
+    if (name === "Main") {
+      return <MainSection/>;
+    } else {
+      return <div>{name}</div>;
+    }
+  };
 
   return (
     <foreignObject
@@ -45,8 +54,8 @@ const PolygonInnerBlock = ({
           width: bBox.width,
           height: bBox.height,
           // background: "yellow",
-          background: index === 4 ? "yellow" : "none",
-          opacity: 0.7,
+          // background: index === 4 ? "yellow" : "none",
+          // opacity: 0.7,
           alignItems: "center",
           justifyContent: "center",
         }}
@@ -61,8 +70,8 @@ const PolygonInnerBlock = ({
             height,
             // background: "orange",
             // background: name === "Credit" ? "orange" : "none",
-            background: index === 4 ? "orange" : "none",
-            opacity: 0.7,
+            // background: index === 4 ? "orange" : "none",
+            // opacity: 0.7,
             zIndex: 3,
             alignItems: "center",
             justifyContent: "center",
@@ -71,7 +80,7 @@ const PolygonInnerBlock = ({
             // transition: "width 0.5s ease-in-out, height 0.5s ease-in-out",
           }}
         >
-          {name}
+          {getSectionContent(name)}
         </div>
       </div>
     </foreignObject>
